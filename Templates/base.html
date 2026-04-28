@@ -1,58 +1,138 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkEase Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --park-beige: #F5F5DC; /* Standard Beige */
+            --park-black: #212529; /* Deep Black/Grey */
+            --park-white: #FFFFFF;
+        }
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       
-        <title> {% block title %}Parkease{% endblock %}</title>
-         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-    <nav class="navbar navbar-dark bg-primary">
-        <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-      Bootstrap
-    </a>
-  </div>
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">ParkEase</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Vehicle Registration</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        body {
+            background-color: var(--park-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-        {% block content %} 
+        /* Sidebar Styling */
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            min-height: 100vh;
+            background-color: var(--park-black);
+            color: var(--park-white);
+            transition: all 0.3s;
+        }
+
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background: #000000;
+            border-bottom: 1px solid var(--park-beige);
+        }
+
+        #sidebar ul li a {
+            padding: 15px 20px;
+            display: block;
+            color: var(--park-white);
+            text-decoration: none;
+            border-bottom: 1px solid #333;
+        }
+
+        #sidebar ul li a:hover {
+            background-color: var(--park-beige);
+            color: var(--park-black);
+        }
+
+        /* Content Area */
+        #content {
+            width: 100%;
+            padding: 20px;
+            background-color: var(--park-beige);
+            min-height: 100vh;
+        }
+
+        .main-card {
+            background-color: var(--park-white);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .sidebar-divider {
+    border-top: 1px solid #444; /* Dark grey line */
+    margin: 10px 0;
+    opacity: 0.5;
+}
+
+.text-beige {
+    color: #F5F5DC !important; /* Beige highlight color */
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+#sidebar ul li a:hover {
+    background: #F5F5DC;
+    color: #000; /* Turns black on beige hover */
+}
+    </style>
+</head>
+<body>
+
+    <div class="d-flex">
         
-        {% endblock %}
-       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
-    </body>
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="{% url 'dashboard' %}" style="text-decoration: none; color: white;">
+                    <h3>ParkEase</h3>
+                </a>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="{% url 'register_vehicle' %}"> Register Vehicle</a>
+                </li>
+                <li>
+                    <a href="{% url 'vehicle_list' %}"> View Parking List</a>
+                </li>
+                <li>
+                    <a href="{% url 'revenue_report' %}"> Revenue Reports</a>
+                </li>
+                <hr class="sidebar-divider">
+        <small class="text-beige px-3">TYRE CLINIC</small>
+
+        <li>
+            <a href="{% url 'record_service' %}"> Record Service</a>
+        </li>
+        <li>
+            <a href="{% url 'service_history' %}"> Service History</a>
+        </li>
+        <small class="text-beige px-3">BATTERY SECTION</small>
+        <li>
+             <a href="{% url 'hire_battery' %}"> Hire Out Battery</a>
+        </li>
+        <li>
+             <a href="{% url 'active_hires' %}"> Active Hires</a></li>
+            </ul>
+        </nav>
+
+        <div id="content">
+            <div class="container-fluid">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

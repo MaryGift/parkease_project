@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2> Active Battery Hires</h2>
+        <a href="{% url 'hire_battery' %}" class="btn btn-success">+ New Hire</a>
+    </div>
+    <hr>
+
+    <table class="table table-hover mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Battery</th>
+                <th>Hire Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hire in hires %}
+            <tr>
+                <td>{{ hire.customer_name }}</td>
+                <td>{{ hire.customer_phone }}</td>
+                <td>{{ hire.battery.brand }} ({{ hire.battery.capacity }})</td>
+                <td>{{ hire.hire_date|date:"M d, Y H:i" }}</td>
+                <td>
+                    <form method="POST" action="{% url 'return_battery' hire.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Confirm battery return?')">
+                            Mark Returned
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center text-muted">No active hires found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

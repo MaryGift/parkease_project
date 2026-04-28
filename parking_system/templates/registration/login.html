@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div class="row w-100 justify-content-center">
+        <div class="col-sm-10 col-md-6 col-lg-4">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 fw-bold">ParkEase Login</h2>
+                    <p class="text-center text-muted">Please enter your staff credentials</p>
+                    <hr class="mb-4">
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3 auth-form-fields">
+                            {{ form.as_p }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-dark w-100 btn-lg py-3 mt-3">
+                            Sign In to ParkEase
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3 text-muted">
+                <small>&copy; 2026 ParkEase Vehicle Services</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* This ensures the Django form inputs look like Bootstrap inputs */
+    .auth-form-fields input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    /* Hide the default Django labels if they look messy with the new style */
+    .auth-form-fields label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2> Revenue Summary Report</h2>
+        <button class="btn btn-outline-dark" onclick="window.print()">Print Report</button>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card border-dark h-100 shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">Parking Revenue</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3 class="display-6">UGX {{ parking_total|default:"0" }}</h3>
+                    <p class="text-muted">Total from parking fees</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-dark h-100 shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">Tyre Clinic Revenue</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3 class="display-6">UGX {{ tyre_total|default:"0" }}</h3>
+                    <p class="text-muted">Total from services recorded</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-dark h-100 shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">Battery Section Revenue</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3 class="display-6">UGX {{ battery_total|default:"0" }}</h3>
+                    <p class="text-muted">Total from hire transactions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-dark text-center mt-2 shadow-sm">
+        <h4 class="mb-0">Grand Total Revenue: <strong>UGX {{ grand_total|default:"0" }}</strong></h4>
+    </div>
+
+    <hr>
+
+    <h4 class="mt-4">Recent Transactions Combined</h4>
+    <div class="table-responsive">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Reference</th>
+                    <th class="text-end">Amount (UGX)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Parking System</td>
+                    <td>Parking Fees</td>
+                    <td class="text-end">{{ parking_total|default:"0" }}</td>
+                </tr>
+                <tr>
+                    <td>Tyre Clinic</td>
+                    <td>Services History</td>
+                    <td class="text-end">{{ tyre_total|default:"0" }}</td>
+                </tr>
+                <tr>
+                    <td>Battery Section</td>
+                    <td>Active/Past Hires</td>
+                    <td class="text-end">{{ battery_total|default:"0" }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

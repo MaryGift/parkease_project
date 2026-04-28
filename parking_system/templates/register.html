@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card main-card p-4">
+    <div class="mb-4">
+        <h2 class="text-dark">Vehicle Arrival Registration</h2>
+        <p class="text-muted">Enter details for the arriving vehicle below.</p>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="row">
+            {% for field in form %}
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-dark"><strong>{{ field.label }}</strong></label>
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-dark btn-lg w-100" style="background-color: #212529;">
+                Complete Registration
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* Styling the input boxes to match our theme */
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    input:focus {
+        border-color: #F5F5DC;
+        outline: none;
+        box-shadow: 0 0 5px rgba(245, 245, 220, 1);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="card shadow p-4" style="border: 2px dashed #333;">
+        <div class="text-center">
+            <h3>PARKEASE</h3>
+            <p>Official Parking Receipt</p>
+            <hr>
+        </div>
+        <div class="mb-3">
+            <p><strong>Receipt Number:</strong> {{ receipt.receipt_number }}</p> <p><strong>Date:</strong> {{ receipt.date_issued|date:"M d, Y H:i" }}</p>
+            <p><strong>Receiver:</strong> {{ receipt.receiver_name }}</p>
+            <p><strong>NIN:</strong> {{ receipt.nin_number }}</p>
+        </div>
+        <div class="alert alert-dark text-center">
+            <h4>Total Paid: UGX {{ receipt.amount_paid }}</h4>
+        </div>
+        <hr>
+        <div class="text-center no-print">
+            <button onclick="window.print()" class="btn btn-dark">Print Receipt</button>
+            <a href="{% url 'dashboard' %}" class="btn btn-dark">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card main-card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-dark">Currently Parked Vehicles</h2>
+        <a href="{% url 'register_vehicle' %}" class="btn btn-dark"> + Register New </a>
+    </div>
+
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Number Plate</th>
+                <th>Vehicle</th>
+                <th>Driver</th>
+                <th>Arrival Time</th>
+                <th>Fee (UGX)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white">
+            {% for vehicle in vehicles %}
+            <tr>
+                <td><strong>{{ vehicle.number_plate }}</strong></td>
+                <td>{{ vehicle.get_vehicle_type_display }}</td>
+                <td>{{ vehicle.driver_name }}</td>
+                <td>{{ vehicle.arrival_time|date:"D, d M H:i" }}</td>
+                <td>{{ vehicle.parking_fee }}</td>
+                <td>
+                    <a href="{% url 'sign_out_vehicle' vehicle.id %}" class="btn btn-sm btn-danger">Sign Out</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No vehicles parked yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
